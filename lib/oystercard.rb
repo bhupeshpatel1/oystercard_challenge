@@ -53,3 +53,33 @@ attr_reader :name, :zone
   end
 
 end
+
+class Journey
+
+attr_reader :entry_station
+
+  PENALTY_FARE = 6
+  MINIMUM_CHARGE = 1
+
+  def initialize
+    @entry_station
+    @exit_station
+  end
+
+  def finish(station)
+    @exit_station = station
+  end
+
+  def fare
+    if @entry_station == nil || complete? == false
+      PENALTY_FARE
+    else
+      MINIMUM_CHARGE
+    end
+  end
+
+  def complete?
+    @exit_station != nil
+  end
+
+end

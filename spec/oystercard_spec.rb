@@ -81,3 +81,44 @@ describe Station do
   end
 
 end
+
+describe Journey do
+  let (:station) { double :station }
+
+  describe '#finish' do
+    it 'returns the exit station' do
+      expect(subject.finish(station)).to eq station
+    end
+  end
+
+  describe '#fare' do
+    it 'should return the correct fare' do
+      expect(subject.fare).to eq Journey::PENALTY_FARE
+    end
+  end
+
+  describe '#complete?' do
+    it 'returns false by default' do
+      expect(subject.complete?).to eq false
+    end
+
+    it 'returns true if journey complete' do
+      subject.finish(station)
+      expect(subject.complete?).to eq true
+    end
+  end
+
+
+  it { is_expected.to respond_to(:finish) }
+  it { is_expected.to respond_to(:fare) }
+  it { is_expected.to respond_to(:complete?) }
+
+  context 'given an entry station' do
+
+    it 'has an entry station' do
+      allow(subject).to receive(:entry_station).and_return(station)
+      expect(subject.entry_station).to eq station
+    end
+  end
+
+end
